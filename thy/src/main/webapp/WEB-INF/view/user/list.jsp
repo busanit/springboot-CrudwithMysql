@@ -16,10 +16,10 @@
     <tbody>
     <c:forEach var="data" items="${list.content}">
       <tr>
-        <td>${data.id }</td>
+        <td>${data.userid }</td>
         <td>${data.name }</td>
         <td>${data.email }</td>
-        <td><a href="/user/delete/${data.id}"><i class="material-icons">delete</i></a></td>
+        <td><a href="/user/delete/${data.userid}"><i class="material-icons">delete</i></a></td>
       </tr>
     </c:forEach>
     </tbody>

@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.cos.thy.domain.User;
 import com.cos.thy.service.UserService;
-
 import java.util.List;
 import java.util.Optional;
-
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -34,22 +32,29 @@ public class UserController {
 	
 	//Optional<User> 테스트용!!
 	@GetMapping(path="/test/oneUser")
-	public @ResponseBody Optional<User> oneUser(@RequestParam Integer id) {
-		Optional<User> user = userService.findById(id);
+	public @ResponseBody Optional<User> oneUser(@RequestParam Integer userid) {
+		Optional<User> user = userService.findById(userid);
 		return user; 
 	}
 
 	//Query 테스트용!!
-	@GetMapping(path="/test/customQuery")
-	public @ResponseBody List<User> customQuery() {
-		List<User> user = userService.findByCustom();
+	@GetMapping(path="/test/customQuery/{userid}")
+	public @ResponseBody List<User> customQuery(@PathVariable int userid) {
+		List<User> user = userService.findByCustom(userid);
 		return user; 
+	}
+
+	//save update테스트용!!
+	@GetMapping(path="/test/updateUser")
+	public String updateUser(User user) {
+		userService.save(user);
+		return "redirect:/user/list";
 	}
 
 	//Page -> number, last, first, content
 	@GetMapping(path="/user/list")
 	public String userList(Model model,
-	@PageableDefault(sort = { "id" }, direction = Direction.DESC, size = 6) Pageable pageable) {
+	@PageableDefault(sort = { "userid" }, direction = Direction.DESC, size = 6) Pageable pageable) {
 		// This returns a JSON or XML with the users
 		Page<User> list = userService.findAll(pageable);
 		model.addAttribute("list", list);
@@ -74,25 +79,30 @@ public class UserController {
 	}
 
 	@PostMapping(path="/user/login")
-	public void userLogin (User user, Model model, HttpSession session) {
+	public String userLogin (User user, Model model) {
 		User userVO = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
 		model.addAttribute("userVO", userVO);
+		if(userVO == null){
+			return "/user/loginForm";
+		}else{
+			return "home";
+		}
 	}
 
 	@GetMapping(path="/user/update") // Map ONLY GET Requests
-	public String userUpdate (@RequestParam int id, @RequestParam String name
+	public String userUpdate (@RequestParam int userid, @RequestParam String name
 			, @RequestParam String email) {
 		User userVO = new User();
-		userVO.setId(id);
+		userVO.setUserid(userid);
 		userVO.setName(name);
 		userVO.setEmail(email);
 		userService.save(userVO);
 		return "redirect:/user/list";		
 	}
 
-	@GetMapping(path="/user/delete/{id}")
-	public String userDelete(@PathVariable int id) {
-		userService.deleteById(id);
+	@GetMapping(path="/user/delete/{userID}")
+	public String userDelete(@PathVariable int userid) {
+		userService.deleteById(userid);
 		return "redirect:/user/list";	
 	}
 

@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
     
     @Override
-    public Optional<User> findById(int id) {
-        return userRepository.findById(id);
+    public Optional<User> findById(int userid) {
+        return userRepository.findById(userid);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void deleteById(int id) {
-        userRepository.deleteById(id);
+    public void deleteById(int userid) {
+        userRepository.deleteById(userid);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<User> findByCustom() {
-        return userRepository.findByCustom();
+    public List<User> findByCustom(int userid) {
+        return userRepository.findByCustom(userid);
     }
 }

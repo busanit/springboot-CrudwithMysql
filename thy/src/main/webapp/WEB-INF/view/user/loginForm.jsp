@@ -8,7 +8,7 @@
   <form action="/user/login" method="POST">
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" class="form-control" placeholder="Enter email" name="email">
+      <input type="email" class="form-control" placeholder="Enter email" name="email" value="${email}">
     </div>
     <div class="form-group">
       <label for="password">Password:</label>

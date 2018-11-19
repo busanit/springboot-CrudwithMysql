@@ -3,18 +3,28 @@
 <%@ include file="../header.jsp" %>
 
 <div class="container">
-  <h5>User Info</h5>          
+  <h5>Board Info</h5>    
+  <a href="/board/writeForm" class="btn btn-success">글쓰기</a>      
   <table class="table table-hover">
     <thead>
       <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>조회수</th>
         <th>작성자</th>
-        <th>내용</th>
-        <th>작성일</th>
         <th>delete</th>
       </tr>
     </thead>
     <tbody>
-
+      <c:forEach var="data" items="${list.content}">
+        <tr>
+          <td>${data.boardid }</td>
+          <td>${data.title }</td>
+          <td>${data.readcount }</td>
+          <td>${data.user.name }</td>
+          <td><a href="/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
+        </tr>
+      </c:forEach> 
     </tbody>
   </table>
 </div>

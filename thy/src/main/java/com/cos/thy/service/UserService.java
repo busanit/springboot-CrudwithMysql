@@ -9,13 +9,13 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     Page<User> findAll(Pageable pageable);
-    Optional<User> findById(int id);
-    void deleteById(int id);
+    Optional<User> findById(int userid);
+    void deleteById(int userid);
     User save(User user); //insert, update
-    List<User> findByCustom();
+    List<User> findByCustom(int userid);
     //select * from user where email=? and password=?
     User findByEmailAndPassword(String email, String password);
-    
+
     //Like연산자 쓰고 싶으면
     //Like 사용 : select ... like : 사용자 이름
     //List<User> findByUsernameLike(String username);

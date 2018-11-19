@@ -7,10 +7,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+	//.addPathPatterns("/**");
 	//.excludePathPatterns("/user/*")
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(new LoginInterceptor())
-				.addPathPatterns("/**");
+				.addPathPatterns("/user/login");
 	}
 }
