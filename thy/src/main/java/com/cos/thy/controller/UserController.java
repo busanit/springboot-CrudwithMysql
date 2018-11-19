@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cos.thy.domain.User;
 import com.cos.thy.service.UserService;
 import java.util.List;
-import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -32,8 +31,8 @@ public class UserController {
 	
 	//Optional<User> 테스트용!!
 	@GetMapping(path="/test/oneUser")
-	public @ResponseBody Optional<User> oneUser(@RequestParam Integer userid) {
-		Optional<User> user = userService.findById(userid);
+	public @ResponseBody User oneUser(@RequestParam Integer userid) {
+		User user = userService.findCustomID(userid);
 		return user; 
 	}
 

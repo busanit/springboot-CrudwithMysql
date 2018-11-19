@@ -45,4 +45,9 @@ public class UserServiceImpl implements UserService{
     public List<User> findByCustom(int userid) {
         return userRepository.findByCustom(userid);
     }
+
+    @Override
+    public User findCustomID(int userid) {
+        return userRepository.findCustomID(userid);
+    }
 }

@@ -15,6 +15,7 @@ public interface UserService {
     List<User> findByCustom(int userid);
     //select * from user where email=? and password=?
     User findByEmailAndPassword(String email, String password);
+    User findCustomID(int userid);
 
     //Like연산자 쓰고 싶으면
     //Like 사용 : select ... like : 사용자 이름

@@ -1,5 +1,7 @@
 package com.cos.thy.controller;
 
+
+
 import javax.servlet.http.HttpSession;
 
 import com.cos.thy.domain.Board;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping(path="/")
@@ -45,12 +48,18 @@ public class BoardController {
     
     @PostMapping(path="/board/insert")
     public String boardInsert(Board board, HttpSession session) {
-        System.out.println("------------board Insert");
         User userVO = (User)session.getAttribute("login");
         board.setReadcount(0);
         board.setUser(userVO);
         boardRepository.save(board);
         return "redirect:/board/list";
+    }
+    
+    @GetMapping(path="/board/detail")
+    public String boardDetail(@RequestParam int boardid, Model model) {
+        Board boardVO = boardRepository.findByBoardid(boardid);
+        model.addAttribute("boardVO", boardVO);
+        return "/board/detail";
 	}
     
 }

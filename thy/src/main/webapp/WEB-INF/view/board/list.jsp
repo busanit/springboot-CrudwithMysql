@@ -2,8 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../header.jsp" %>
 
-<div class="container">
-  <h5>Board Info</h5>    
+<div class="container"> 
   <a href="/board/writeForm" class="btn btn-success">글쓰기</a>      
   <table class="table table-hover">
     <thead>
@@ -19,7 +18,7 @@
       <c:forEach var="data" items="${list.content}">
         <tr>
           <td>${data.boardid }</td>
-          <td>${data.title }</td>
+          <td><a href="/board/detail?boardid=${data.boardid}">${data.title}</a></td>
           <td>${data.readcount }</td>
           <td>${data.user.name }</td>
           <td><a href="/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
