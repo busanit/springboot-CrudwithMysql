@@ -2,6 +2,7 @@ package com.cos.thy.controller;
 
 
 
+
 import javax.servlet.http.HttpSession;
 
 import com.cos.thy.domain.Board;
@@ -29,14 +30,22 @@ public class BoardController {
 
 	@GetMapping(path="/board/list")
     public String boardList(Model model,
-    @PageableDefault(sort = { "boardid" }, direction = Direction.DESC, size = 6) Pageable pageable) {
+    @PageableDefault(sort = { "boardid" }, direction = Direction.DESC, size = 5) Pageable pageable) {
         Page<Board> list = boardRepository.findAll(pageable);
         model.addAttribute("list", list);
         return "/board/list";
     }
     
-    @GetMapping(path="/board/delete/{boardid}")
-    public String boardDelete(@PathVariable int boardid){
+    @GetMapping(path="/admin/board/delete/{boardid}")
+    public String boardAdminDelete(@PathVariable int boardid){
+        System.out.println("============");
+        
+        boardRepository.deleteById(boardid);
+        return "redirect:/board/list";
+    }
+
+    @GetMapping(path="/board/delete")
+    public String boardDelete(@RequestParam int boardid){
         boardRepository.deleteById(boardid);
         return "redirect:/board/list";
     }
@@ -60,6 +69,22 @@ public class BoardController {
         Board boardVO = boardRepository.findByBoardid(boardid);
         model.addAttribute("boardVO", boardVO);
         return "/board/detail";
-	}
+    }
+
+    @GetMapping(path="/board/updateForm")
+    public String boardUpdateForm(@RequestParam int boardid, Model model) {
+        Board boardVO = boardRepository.findByBoardid(boardid);
+        System.out.println("boardid : "+boardVO.getBoardid());
+        model.addAttribute("boardVO", boardVO);
+        return "/board/updateForm";
+    }
     
+    @PostMapping(path="/board/update")
+    public String boardUpdate(Board board, HttpSession session) {
+        User userVO = (User)session.getAttribute("login");
+        board.setReadcount(0);
+        board.setUser(userVO);
+        boardRepository.save(board);
+        return "redirect:/board/list";
+    }
 }

@@ -2,17 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="../header.jsp" %>
 
-<div class="container">
-    <div class="posts">
-        <div class="post">
-            <h1 class="post-title">
-                ${boardVO.title}
-            </h1>
-            ${boardVO.content}
+<section id="about">
+    <div class="container">
+    <a href="/board/updateForm?boardid=${boardVO.boardid}" class="btn btn-primary">수정</a>
+    <a href="/board/delete?boardid=${boardVO.boardid}" class="btn btn-danger">삭제</a><br><br>
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+        <h2 class="text-center"><b>${boardVO.title}</b></h2>
+        <hr>
+        <p class="lead">${boardVO.content}</p>
+        <hr>
         </div>
     </div>
-<a href="/board/updateForm" class="btn btn-success">수정</a>
-</div>
+    </div>
+</section>
 
 
 <%@ include file="../footer.jsp" %>

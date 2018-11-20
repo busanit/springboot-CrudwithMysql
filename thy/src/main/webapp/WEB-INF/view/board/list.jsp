@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 
 <div class="container"> 
-  <a href="/board/writeForm" class="btn btn-success">글쓰기</a>      
+  <a href="/board/writeForm" class="btn btn-primary">글쓰기</a><br><br>     
   <table class="table table-hover">
     <thead>
       <tr>
@@ -21,7 +21,7 @@
           <td><a href="/board/detail?boardid=${data.boardid}">${data.title}</a></td>
           <td>${data.readcount }</td>
           <td>${data.user.name }</td>
-          <td><a href="/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
+          <td><a href="/admin/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
         </tr>
       </c:forEach> 
     </tbody>
