@@ -22,6 +22,4 @@ public class Board {
     @ManyToOne
     @JoinColumn(name="userid")
     private User user;
-
-    
 }

@@ -13,7 +13,7 @@
     <div class="form-group">
       <textarea name="content" id="textAreaContent" style="width: 100%" rows="12" cols="80"></textarea>
     </div>
-    <button class="form-control" type="button" onclick="submitContents(this)">글쓰기</button>
+    <button class="form-control foode-btn" type="button" onclick="submitContents(this)">글쓰기</button>
   </form>
 </div>
 <br>

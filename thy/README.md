@@ -25,5 +25,3 @@ mysql> grant select, insert, delete, update on spring_db.* to 'spring'@'localhos
 ### yml update
 spring.jpa.hibernate.ddl-auto=none
 
-### mysql column type change
-ALTER TABLE board CHANGE content content  text(65536);

@@ -53,7 +53,7 @@ public class UserController {
 	//Page -> number, last, first, content
 	@GetMapping(path="/user/list")
 	public String userList(Model model,
-	@PageableDefault(sort = { "userid" }, direction = Direction.DESC, size = 5) Pageable pageable) {
+	@PageableDefault(sort = { "userid" }, direction = Direction.DESC, size = 6) Pageable pageable) {
 		// This returns a JSON or XML with the users
 		Page<User> list = userService.findAll(pageable);
 		model.addAttribute("list", list);
@@ -74,7 +74,7 @@ public class UserController {
 	@PostMapping(path="/user/insert") // Map ONLY GET Requests
 	public String userInsert (User user, Model model) {
 		userService.save(user);
-		return "redirect:/";	
+		return "redirect:/user/list";	
 	}
 
 	@PostMapping(path="/user/login")
@@ -99,8 +99,8 @@ public class UserController {
 		return "redirect:/user/list";		
 	}
 
-	@GetMapping(path="/admin/user/delete")
-	public String userDelete(@RequestParam int userid) {
+	@GetMapping(path="/user/delete/{userID}")
+	public String userDelete(@PathVariable int userid) {
 		userService.deleteById(userid);
 		return "redirect:/user/list";	
 	}

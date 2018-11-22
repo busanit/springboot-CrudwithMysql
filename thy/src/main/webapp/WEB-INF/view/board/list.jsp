@@ -3,7 +3,7 @@
 <%@ include file="../header.jsp" %>
 
 <div class="container"> 
-  <a href="/board/writeForm" class="btn btn-primary">글쓰기</a><br><br>     
+  <a href="/board/writeForm" class="btn btn-success">글쓰기</a>      
   <table class="table table-hover">
     <thead>
       <tr>
@@ -11,9 +11,7 @@
         <th>제목</th>
         <th>조회수</th>
         <th>작성자</th>
-        <c:if test="${sessionScope.login.email == 'admin@gmail.com'}">
-          <th>delete</th>
-        </c:if>
+        <th>delete</th>
       </tr>
     </thead>
     <tbody>
@@ -23,9 +21,7 @@
           <td><a href="/board/detail?boardid=${data.boardid}">${data.title}</a></td>
           <td>${data.readcount }</td>
           <td>${data.user.name }</td>
-          <c:if test="${sessionScope.login.email == 'admin@gmail.com'}">
-            <td><a href="/admin/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
-          </c:if>
+          <td><a href="/board/delete/${data.boardid}"><i class="material-icons">delete</i></a></td>
         </tr>
       </c:forEach> 
     </tbody>
