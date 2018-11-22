@@ -3,17 +3,24 @@ package com.cos.thy.controller;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import com.cos.thy.domain.Board;
+import com.cos.thy.domain.Reply;
 import com.cos.thy.domain.User;
 import com.cos.thy.persistent.BoardRepository;
+import com.cos.thy.persistent.ReplyRepository;
+import com.google.gson.Gson;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +35,9 @@ public class BoardController {
     @Autowired
     private BoardRepository boardRepository;
 
+    @Autowired
+    private ReplyRepository replyRepository;
+
 	@GetMapping(path="/board/list")
     public String boardList(Model model,
     @PageableDefault(sort = { "boardid" }, direction = Direction.DESC, size = 5) Pageable pageable) {
@@ -38,8 +48,6 @@ public class BoardController {
     
     @GetMapping(path="/admin/board/delete/{boardid}")
     public String boardAdminDelete(@PathVariable int boardid){
-        System.out.println("============");
-        
         boardRepository.deleteById(boardid);
         return "redirect:/board/list";
     }
@@ -64,10 +72,18 @@ public class BoardController {
         return "redirect:/board/list";
     }
     
+    @Transactional
     @GetMapping(path="/board/detail")
-    public String boardDetail(@RequestParam int boardid, Model model) {
+    public String boardDetail(@RequestParam("boardid") int boardid, Model model) {
+        System.out.println("-----------------------------------------");
+        System.out.println(boardid);
+        System.out.println("-----------------------------------------");
         Board boardVO = boardRepository.findByBoardid(boardid);
+        boardRepository.updateReadCount(boardid);
+        List<Reply> replyList =  replyRepository.findByCustomBoardid(boardid);
         model.addAttribute("boardVO", boardVO);
+        model.addAttribute("gson", new Gson());
+        model.addAttribute("replyList", replyList);
         return "/board/detail";
     }
 

@@ -74,7 +74,7 @@ public class UserController {
 	@PostMapping(path="/user/insert") // Map ONLY GET Requests
 	public String userInsert (User user, Model model) {
 		userService.save(user);
-		return "redirect:/user/list";	
+		return "redirect:/";	
 	}
 
 	@PostMapping(path="/user/login")

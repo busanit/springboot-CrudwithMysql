@@ -18,11 +18,9 @@ public class SessionInterceptor extends HandlerInterceptorAdapter{
             throws Exception {
         HttpSession session = request.getSession();
         if(session.getAttribute(LOGIN) == null){
-            System.out.println("=======================");
             response.sendRedirect("/user/loginForm");
             return false;
         }
-        System.out.println("++++++++++++++++++++++++++");
         return true;
     }
 }
