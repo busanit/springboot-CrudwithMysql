@@ -10,7 +10,9 @@
         <th>id</th>
         <th>name</th>
         <th>email</th>
-        <th>delete</th>
+        <c:if test="${sessionScope.login.email == 'admin@gmail.com'}">
+          <th>delete</th>
+        </c:if>
       </tr>
     </thead>
     <tbody>
@@ -19,7 +21,9 @@
         <td>${data.userid }</td>
         <td>${data.name }</td>
         <td>${data.email }</td>
-        <td><a href="/user/delete/${data.userid}"><i class="material-icons">delete</i></a></td>
+        <c:if test="${sessionScope.login.email == 'admin@gmail.com'}">
+          <td><a href="/admin/user/delete?userid=${data.userid}"><i class="material-icons">delete</i></a></td>
+        </c:if>
       </tr>
     </c:forEach>
     </tbody>
